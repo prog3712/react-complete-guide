@@ -8,7 +8,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 // High Order Components
-import Aux from '../hoc/Aux';
+import Auxiliary from '../hoc/Auxiliary';
 import withClass from '../hoc/withClass';
 //import WithClass from '../hoc/WithClass';
 
@@ -103,11 +103,11 @@ class App extends PureComponent {
     }
 
     return (
-      <Aux>
+      <Auxiliary>
         <button onClick={() => {this.setState({showPersons:true})}}>Show Persons</button>
         <Cockpit appTitle={this.props.title} persons={this.state.persons} showPersons={this.state.showPersons} clicked={this.togglePersonsHandler}/>
         {persons}
-      </Aux>
+      </Auxiliary>
     );
     //return React.createElement('div', null, React.createElement('h1', {className: 'App'}, 'Hi. I\'m a React App!!!'));
   }
