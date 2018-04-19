@@ -6,10 +6,13 @@ import classes from './Person.css';
 import Auxiliary from '../../../hoc/Auxiliary';
 import withClass from '../../../hoc/withClass';
 
+import { AuthContext } from "../../../containers/App";
+
 class Person extends Component {
   constructor(props) {
     super(props);
     console.log('[Person.js] Inside Constructor', props);
+    this.inputElement = React.createRef();
   }
 
   componentWillMount() {
@@ -18,10 +21,17 @@ class Person extends Component {
 
   componentDidMount(){
     console.log('[Person.js] Inside componentDidMount()');
+    if( this.props.position === 0 ) {
+      this.inputElement.current.focus();
+    }
   }
 
   componentWillUnmount() {
     console.log('[Person.js] I\'m about to be removed!');
+  }
+
+  focus() {
+    this.inputElement.current.focus();
   }
 
   render(){
@@ -30,9 +40,12 @@ class Person extends Component {
 
     return (
       <Auxiliary>
+        <AuthContext.Consumer>
+          {auth => auth ? <p>I'm authenticated</p> : null}
+        </AuthContext.Consumer>
         <p onClick={this.props.click}>I am {this.props.name} and I am {this.props.age} years old!</p>
         <p>{this.props.children}</p>
-        <input type="text" onChange={this.props.changed} value={this.props.name} />
+        <input type="text" onChange={this.props.changed} value={this.props.name} ref={this.inputElement} />
       </Auxiliary>
     )
   }
